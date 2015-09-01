@@ -1,3 +1,9 @@
 language: julia
 julia:
     - release
+deploy:
+    provider: openshift
+    user: rafzalan@gmail.com
+    password: vafa01
+    domain: rahamooz
+    app: julia
