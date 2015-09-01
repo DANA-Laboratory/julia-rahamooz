@@ -1,6 +1,6 @@
 deploy:
   provider: openshift
-  user: "rafzalan@gmail.com"
-  password: "vafa01" # can be encrypted
-  domain: "rahamooz"
-  app: "julia"
+  user: rafzalan@gmail.com
+  password: vafa01
+  domain: rahamooz
+  app: julia
