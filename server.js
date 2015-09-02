@@ -11,7 +11,7 @@ var SampleApp = function() {
 
     //  Scope.
     var self = this;
-
+    
 
     /*  ================================================================  */
     /*  Helper functions.                                                 */
@@ -109,7 +109,9 @@ var SampleApp = function() {
             res.sendfile('./view/' + req.params.page);
         };
     };
-
+    
+    express.set('views', __dirname + '/view');
+    express.set('view engine', 'jade');
 
     /**
      *  Initialize the server (express) and create the routes and register
@@ -125,6 +127,7 @@ var SampleApp = function() {
         for (var r in self.routes) {
             self.app.get(r, self.routes[r]);
         }
+        
     };
 
 
