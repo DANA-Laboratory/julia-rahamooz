@@ -106,7 +106,7 @@ var SampleApp = function() {
         };
         
         self.routes['/:page'] = function(req, res) {
-            res.render('./view/' + req.params.page);
+            res.render('view/' + req.params.page);
         };
     };
 
