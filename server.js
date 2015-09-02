@@ -106,12 +106,9 @@ var SampleApp = function() {
         };
         
         self.routes['/:page'] = function(req, res) {
-            res.sendfile('./view/' + req.params.page);
+            res.render('course');
         };
     };
-    
-    express.set('views', __dirname + '/view');
-    express.set('view engine', 'jade');
 
     /**
      *  Initialize the server (express) and create the routes and register
@@ -119,7 +116,10 @@ var SampleApp = function() {
      */
     self.initializeServer = function() {
         self.createRoutes();
-        self.app = express.createServer();
+        self.app = express();
+        
+        self.app.set('views', './jade');
+        self.app.set('view engine', 'jade');
         // set static asset folder
         self.app.use(express.static('public'));
         self.app.use(express.static('src'));
