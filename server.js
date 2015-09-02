@@ -43,7 +43,7 @@ var SampleApp = function() {
         }
 
         //  Local cache for static content.
-        self.zcache['index.html'] = fs.readFileSync('./view/index.html');
+        self.zcache['index.html'] = fs.readFileSync('./index.html');
     };
 
 
@@ -118,7 +118,7 @@ var SampleApp = function() {
         self.createRoutes();
         self.app = express();
         
-        self.app.set('views', './jade');
+        self.app.set('views', './views');
         self.app.set('view engine', 'jade');
         // set static asset folder
         self.app.use(express.static('public'));
