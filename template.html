@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <header />
+      <style>
+          body { 
+            margin: 10px 0; 
+            padding: 5px; 
+            background-color: #e7e7e7; 
+            color: #333; font-family: B Yekan; 
+            font-size: 10pt; 
+            text-align: center; 
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            background-image: url(https://raw.githubusercontent.com/DANA-Laboratory/juliaCourses/master/math.jpg);
+          }
+          table, pre, select, input, textarea { font-size: 100%; }
+          input, textarea, select { font-family: Tahoma; font-size: 8pt; }
+          img, fieldset { border: 0; }
+          p, form, fieldset, h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; }
+          a { text-decoration: none; color: #06c; }
+          a:hover { color: #f00; }
+          #page { margin: auto; background-color: #fff; width: 900px; text-align: right; border-style: groove;}
+          #header {  background: url(https://raw.githubusercontent.com/DANA-Laboratory/juliaCourses/master/julialang.png) ;
+                    background-repeat: no-repeat;
+                    background-color: #e7e7e7;
+                    height: 170px;
+                    direction: rtl;
+                    border-bottom-style: groove;
+                    padding: 10px;
+                 }
+         #blog-title { padding: 63px 30px 6px 30px; font-family: b yekan, tahoma, times new roman, sans-serif; font-weight: bold; font-size: 28px; color: #000; }
+         #blog-title a { color: #000; }
+         #description { color: #000; }
+         #sidebar { padding: 25px 25px 25px 0; float: right; width: 185px; }
+         .description, .excerpt { text-align: justify; margin-top: 3px; direction: rtl; }
+         .excerpt { line-height: 1.3em; }
+         .menu { direction: rtl; }
+         .menu .title { margin-bottom: 10px; font-weight: 600; color: #333; font-size: 8pt; }
+         .menu ul { margin: 0 20px 0 0; padding: 0; }
+         .menu ul li { list-style-image: url(http://www.blogsky.com/images/template/blue/bullet.gif); margin: 6px 0 0 0; padding: 0; color: #777; }
+         .menu .hl { margin: 15px 27px 15px 27px; border-bottom: #d1d1d1 1px solid; }
+         .menu .poll-vote { margin: 5px 0; padding: 0; }
+         .menu .poll-vote li { list-style: none; color: #333; }
+         .menu .poll-answer { margin: 12px 0 5px 0 }
+         .menu .poll-result-box { width: 170px; height: 20px; border: 1px solid #D1D1D1; background-color: white; }
+         .menu .poll-result-vote-percent { padding-top: 3px; height: 17px; background-color: #C9C9C9; text-align: center }
+         .menu .message { padding: 5px 0; font-weight: normal; color: red; }
+         .menu .tag-1 { font-size: 8pt; }
+         .menu .tag-2 { font-size: 10pt; }
+         .menu .tag-3 { font-size: 12pt; }
+         .menu .tag-4 { font-size: 14pt; }
+         .menu .tag-5 { font-size: 16pt; }
+         .menu .tag-6 { font-size: 18pt; }
+         #main { 
+          float: left; 
+          width: 670px; 
+          border-right-style: groove;
+          padding: 5px;
+        }
+         .bs-post-pin { background-color: #EFEFEF; }
+         .post { margin-top: 10px; padding: 10px; border-bottom: #d1d1d1 1px solid; direction: rtl; }
+         .post .title { margin-bottom: 5px; font-weight: bold; font-size: 9pt; }
+         .post .date { margin-bottom: 10px; color: #777; }
+         .post .profile { border: 1px solid gray; float: left; margin: 0 10px 2px 0; display: block; }
+         .post .text { font-size: 10pt; line-height: 1.8em; }
+         .post .text img { max-width: 600px; }
+         .post .tags { margin: 5px 0; }
+         .post .like { margin: 5px 0; font-size: 10pt; color: #333; }
+         .post .like .message { color: Red; font-size: 9pt; }
+         .post .footer { padding: 8px 0 5px 0; color: #777; clear: both; }
+         .post .sharing { padding: 10px 0; }
+         .post .sharing a { background: url("http://www.blogsky.com/images/template/blue/sharing.gif") no-repeat scroll 0 0 transparent; display: block; float: right; height: 16px; margin-left: 10px; width: 16px; }
+         #static-page { margin-top: 20px; padding-bottom: 10px; border-bottom: #d1d1d1 1px solid; direction: rtl; }
+         #static-page .title { margin-bottom: 5px; font-weight: bold; font-size: 10pt; }
+         #static-page .text { font-size: 10pt; line-height: 1.8em; }
+         #static-page .text img { max-width: 450px; }
+         #daily-link-archive, #post-archive, #search-result { margin-top: 20px; padding-bottom: 10px; border-bottom: #d1d1d1 1px solid; direction: rtl; }
+         #daily-link-archive .title, #post-archive .title, #search-result .title { margin-bottom: 15px; font-weight: bold; font-size: 9pt; }
+         #daily-link-archive .text, #post-archive .text { font-size: 9pt; line-height: 1.8em; }
+         #daily-link-archive ul, #post-archive ul, #search-result ul { margin: 0 20px 0 0; padding: 0; }
+         #daily-link-archive ul li, #post-archive ul li, #search-result ul li { list-style-image: url(http://www.blogsky.com/images/template/blue/bullet.gif); margin: 10px 0 0 0; padding: 0; color: #666666; }
+         #search-result .bs-search-word { font-weight: bold; }
+         #multi-page { margin: 10px 0; color: #666666; text-align: center; direction: rtl; }
+         #footer {height: 58px; clear: both; border-top-style: groove; }
+         #footer .cb {height: 58px; }
+         #footer .cb .cl {height: 58px; }
+         #powered { padding-top: 22px; text-align: center; }
+         #powered a:hover { color: #06c; }
+         #calendar { color: #194685; text-align: center; width: 185px; }
+         #calendar table td { text-align: center; padding: 3px; }
+         #calendar .week-days { color: #194685; background-color: #e7e7e7; }
+         #calendar .day-off { color: #777; font-size: 7pt; }
+         #calendar .day-on a { color: #f50; text-decoration: none; font-size: 7pt; }
+         #calendar .day-on a:hover { color: #f50; text-decoration: underline; }
+         #comments { padding-top: 20px; }
+         #comments .title { margin-bottom: 20px; font-weight: bold; direction: rtl; text-align: center; }
+         #comment-form { margin-top: 30px; }
+         #comment-form .message { padding: 10px 0; color: Red; font-size: 9pt; font-weight: bold; text-align: center; }
+         .comment { padding-bottom: 5px; margin-bottom: 15px; text-align: right; direction: rtl; border-bottom: 1px solid #B3B9C3; }
+         .comment .name { margin-bottom: 3px; font-weight: bold; color: #4182b8; }
+         .comment .datetime { margin-bottom: 5px; color: #777; }
+         .comment .text { margin-bottom: 10px; text-align: justify; line-height: 1.5em; }
+         .comment .web { text-align: left; direction: ltr; float: left; }
+         .comment .rate { float: right; color: #777; position: relative; }
+         .comment .rate .plus { cursor: pointer; margin-right: 2px; }
+         .comment .rate .minus { cursor: pointer; margin-right: 4px; }
+         .comment .rate .message { padding: 5px; background-color: white; border: 1px solid #B3B9C3; position: absolute; display: none; white-space: nowrap; opacity: 0.9; color: red; top: -5px; right: 30px; }
+         .comment .message { padding: 10px 0; text-align: center; color: red; }
+         .comment .reply { margin: 5px 0; padding: 5px; border-right: 5px solid #d1d1d1; line-height: 1.5em; text-align: justify; background-color: #f4f4f4; }
+         .bs-validation-summary-errors { background-color: #FFEEEE; border: 1px solid red; color: red; margin-bottom: 10px; padding: 5px 20px 5px 5px; }
+         .bs-validation-summary-errors li { padding: 1px 0; }
+         #contact-box, #form-box { direction: rtl; border: 0; margin: auto; }
+         #contact-box th, #form-box th { text-align: right; width: 70px; font-weight: normal; }
+         #contact-box td, #form-box td { text-align: right; width: 315px; }
+         #contact-box input[type=text], #form-box input[type=text] { font-size: 10pt; padding: 3px; width: 280px; border: 1px solid #AFAFAF; }
+         #contact-box textarea, #form-box textarea { font-size: 10pt; padding: 3px; width: 354px; height: 160px; border: 1px solid #AFAFAF; }
+         .bs-input-validation-error { background-color: #FFEEEE; }
+         #smiley-box { position: absolute; display: none; background-color: #fff; z-index: 10; left: 0; border: 1px solid #999; width: 155px; padding: 2px; }
+         #smiley-box img { cursor: pointer; margin: 2px; }
+         #gravatar-help { direction: rtl; padding: 10px 0; text-align: center; }
+         .gravatar { float: left; }
+         .html { direction: ltr; text-align: left; }
+         .bs-ltr { direction: ltr; text-align: left; }
+         #bs-input-search { width: 100px }
+         .bs-captcha-box { margin: 5px 0; text-align: center; }
+         .bs-captcha-image { vertical-align: bottom; }
+         .bs-captcha-refresh { background: url("http://www.blogsky.com/images/template/blue/reload.gif") no-repeat; cursor: pointer; display: inline-block; height: 22px; width: 22px; vertical-align: bottom; border: 1px solid #afafaf; }
+         .bs-captcha-code { color: #000000; direction: ltr; font-family: verdana !important; font-size: 14pt !important; font-weight: bold; padding: 2px !important; text-align: left; text-transform: uppercase; width: 85px !important; height: 20px; letter-spacing: 3px; }
+         #contact-box .bs-captcha-code { width: 110px !important; }
+         #contact .header { margin: 10px auto; width: 400px; }
+         #contact .title { font-weight: bold; font-size: 9pt; }
+         #contact .message { color: red; direction: rtl; text-align: right; margin-top: 10px; }
+         table.benchmarks { width: 670px; }
+      </style>
+      <script>
+         blogsky.ajax.onPollVoteSuccess = function(e) {
+             document.getElementById("poll-vote-" + e.id).innerHTML = e.data;
+         }
+         
+         blogsky.ajax.onPollVoteFailure = function(e)
+         {
+             var pollVoteErrorMessage = document.getElementById("poll-vote-error-message-" + e.id);
+             pollVoteErrorMessage.innerHTML = e.error;
+             pollVoteErrorMessage.style.display = "block";
+             setTimeout(function () { pollVoteErrorMessage.style.display = "none"; }, 5000);
+         }
+         
+         blogsky.ajax.onPollResultSuccess = function(e) {
+             document.getElementById("poll-vote-" + e.id).style.display = "none";
+             document.getElementById("poll-result-" + e.id).innerHTML = e.data;
+         }
+         
+         blogsky.ajax.onPollResultFailure = function(e) {
+             var pollVoteErrorMessage = document.getElementById("poll-vote-error-message-" + e.id);
+             pollVoteErrorMessage.innerHTML = e.error;
+             pollVoteErrorMessage.style.display = "block";
+             setTimeout(function () { pollVoteErrorMessage.style.display = "none"; }, 5000);
+         }
+      </script>
+      <link href='http://awebfont.ir/css?id=1116&mode=wl' rel='stylesheet' type='text/css'>
+      <link rel="stylesheet" href="https://cdn.rawgit.com/DANA-Laboratory/juliaCourses/master/highlight/styles/dlab.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+      <script src="https://rawgit.com/DANA-Laboratory/juliaCourses/master/highlight/highlight.min.js"></script>
+   </head>
+   <body>
+      <div id="page">
+         <div id="header">
+            <div class="ct">
+               <div class="cl">
+                  <h1 id="blog-title"><a href="@blogUrl">@blogTitle</a></h1>
+                  <div id="description">@blogDescription</div>
+               </div>
+            </div>
+         </div>
+         <div id="container">
+            <div id="content">
+               <div id="main">
+                  <post>
+                     <many>
+                        <div class="post @pinStyleClass">
+                           <h2 class="title"><a href="@href">@title</a></h2>
+                           <div class="date">
+                              <authorAvatar>
+                                 <img alt="" class="profile" src="@image" />
+                              </authorAvatar>
+                              @date ساعت @time
+                           </div>
+                           <div class="text">
+                              <password>
+                                 <div style="padding: 20px 0">
+                                    <div>این مطلب توسط نویسنده آن رمزگذاری شده است.<br />
+                                       برای مشاهده آن احتیاج به وارد کردن رمز عبور دارید.
+                                    </div>
+                                    <div style="padding-top: 7px;">
+                                       <result>
+                                          <div style="color: #f00">@message</div>
+                                       </result>
+                                       رمز عبور: 
+                                       <passwordBox />
+                                       <input type="submit" value="ارسال" />
+                                    </div>
+                                 </div>
+                              </password>
+                              @content
+                              <more><br /><a href="@href"> ادامه مطلب ...</a></more>
+                              <tag>
+                                 <div class="tags">
+                                    برچسب‌ها: 
+                                    <many>
+                                       <a href="@href">@name</a>
+                                       <separator>، </separator>
+                                    </many>
+                                 </div>
+                              </tag>
+                           </div>
+                           <div class="footer">
+                              <like>
+                                 <script>
+                                    blogsky.ajax.onPostLikeBegin = function(e) {
+                                        var postLikeCountElement = document.getElementById("post-like-count-" + e.id);
+                                        var postLikeCount = parseInt(postLikeCountElement.innerHTML);
+                                        postLikeCountElement.innerHTML = postLikeCount + 1;
+                                    }
+                                    
+                                    blogsky.ajax.onPostLikeFailure = function(e) {
+                                        var postLikeCountElement = document.getElementById("post-like-count-" + e.id);
+                                        postLikeCountElement.innerHTML = parseInt(postLikeCountElement.innerHTML) - 1;
+                                        var postLikeErrorMessage = document.getElementById("post-like-error-message-" + e.id);
+                                        postLikeErrorMessage.innerHTML = e.error;
+                                        setTimeout(function () { postLikeErrorMessage.innerHTML = ""; }, 5000);
+                                    }
+                                 </script>
+                                 <div class="like">
+                                    <span onclick="@ajaxAction" style="cursor: pointer;">
+                                    <img style="vertical-align: middle;" src="http://www.blogsky.com/images/template/blue/like.gif">
+                                    (<span style="font-size: 10pt;" id="post-like-count-@id">@count</span> لایک)
+                                    </span>
+                                    <span id="post-like-error-message-@id" class="message"></span>
+                                 </div>
+                              </like>
+                              <sharing>
+                                 <div class="sharing">
+                                    <a href="http://www.facebook.com/sharing.php?u=@url&t=@title" title="Facebook" target="_blank" style="background-position: 0px 0px;"></a>
+                                    <a href="http://twitter.com/home?statue=@url : @title" title="Twitter" target="_blank" style="background-position: -17px 0px;"></a>
+                                    <a href="http://friendfeed.com/sharing?u=@url&t=@title" title="FriendFeed" target="_blank" style="background-position: -34px 0px;"></a>
+                                    <a href="ymsgr:sendim?+&m=@url" title="Yahoo Messenger" style="background-position: -51px 0px;"></a>
+                                    <a href="http://compose.mail.yahoo.com/?subject=@title&body=@url" title="Yahoo Mail" target="_blank" style="background-position: -68px 0px;"></a>
+                                    <a href="http://delicio.us/post?url=@url&title=@title" title="Delicious" target="_blank" style="background-position: -85px 0px;"></a>
+                                    <a href="http://digg.com/submit?url=@url&t=@title" title="Digg" target="_blank" style="background-position: -102px 0px;"></a>
+                                    <a href="http://www.linkedin.com/sharingArticle?mini=true&url=@url&title=@title&source=@blogUrl" title="LinkedIn" target="_blank" style="background-position: -119px 0px;"></a>
+                                    <a href="https://mail.google.com/mail/?ui=2&view=cm&fs=1&tf=1&su=@title&body=@url" title="Gmail" target="_blank" style="background-position: -136px 0px;"></a>
+                                    <div style="clear: both;"></div>
+                                 </div>
+                              </sharing>
+                              <div>
+                                 <author>نوشته شده توسط <a href="@profileHref" target="_blank">@name</a></author>
+                                 <print> | <a onclick="window.open('@href','_blank','width=700, height=450, scrollbars=yes, resizable=yes');" href="javascript:void(0)">چاپ یادداشت</a></print>
+                                 <commentLink> | <a href="@href">@count نظر</a></commentLink>
+                              </div>
+                           </div>
+                        </div>
+                        <comment />
+                     </many>
+                     <paging />
+                  </post>
+                  <staticPage>
+                     <div id="static-page">
+                        <h2 class="title"><a href="@href">@title</a></h2>
+                        <div class="text">
+                           <password>
+                              <div style="padding: 20px 0">
+                                 <div>این مطلب توسط نویسنده آن رمزگذاری شده است.<br />
+                                    برای مشاهده آن احتیاج به وارد کردن رمز عبور دارید.
+                                 </div>
+                                 <div style="padding-top: 7px;">
+                                    <result>
+                                       <div style="color: #f00">@message</div>
+                                    </result>
+                                    رمز عبور: 
+                                    <passwordBox />
+                                    <input type="submit" value="ارسال" />
+                                 </div>
+                              </div>
+                           </password>
+                           @content
+                        </div>
+                     </div>
+                     <comment />
+                  </staticPage>
+                  <comment>
+                     <script>
+                        blogsky.ajax.onCommentSubmitSuccess = function(e) {
+                            document.getElementById("comment-form").innerHTML = "<div class=\"message\">" + e.data + "</div>";
+                        }
+                        
+                        blogsky.ajax.onCommentSubmitFailure = function(e) {
+                            document.getElementById("comment-errors-message").innerHTML = e.error;
+                        }
+                        
+                        blogsky.ajax.onCommentRateBegin = function(e) {
+                            switch (e.rateType) {
+                                case "plus":
+                                    var commentRatePlus = document.getElementById("comment-rate-plus-count-" + e.id);
+                                    commentRatePlus.innerHTML = parseInt(commentRatePlus.innerHTML) + 1;
+                                    break;
+                                case "minus":
+                                    var commentMinusPlus = document.getElementById("comment-rate-minus-count-" + e.id);
+                                    commentMinusPlus.innerHTML = parseInt(commentMinusPlus.innerHTML) + 1;
+                                    break;
+                            }
+                        }
+                        
+                        blogsky.ajax.onCommentRateFailure = function(e) {
+                            switch (e.rateType) {
+                                case "plus":
+                                    var commentRatePlus = document.getElementById("comment-rate-plus-count-" + e.id);
+                                    commentRatePlus.innerHTML = parseInt(commentRatePlus.innerHTML) - 1;
+                                    break;
+                                case "minus":
+                                    var commentMinusPlus = document.getElementById("comment-rate-minus-count-" + e.id);
+                                    commentMinusPlus.innerHTML = parseInt(commentMinusPlus.innerHTML) - 1;
+                                    break;
+                            }
+                            var commentRateErrorMessage = document.getElementById("comment-rate-error-message-" + e.id);
+                            commentRateErrorMessage.innerHTML = e.error;
+                            commentRateErrorMessage.style.display = "block";
+                            setTimeout(function () { commentRateErrorMessage.style.display = "none"; }, 3000);
+                        }
+                        
+                        function insertCommentSmiley(smiley) {
+                            var inputComment = document.getElementById("comments").getElementsByTagName("TEXTAREA")[0];
+                            blogsky.general.insertAtCursor(inputComment, smiley);
+                        }
+                        
+                        document.onclick = function (e) {
+                            if (e.target.id != "smiley-button") {
+                                var smileyBox = document.getElementById("smiley-box");
+                                if (smileyBox != null) smileyBox.style.display = "none";
+                            }
+                        }
+                     </script>
+                     <div id="comments">
+                        <div class="title">نظرات (@commentCount)</div>
+                        <many>
+                           <div class="comment" id="comment-@id">
+                              <div class="name">
+                                 <gravatar><img class="gravatar" src="@image" alt="" /></gravatar>
+                                 <a href="#comment-@id">
+                                    <country><img src="@flagImage" title="@name" alt="" /></country>
+                                    @authorName
+                                 </a>
+                              </div>
+                              <div class="datetime">@date ساعت @time</div>
+                              <div class="text">@text</div>
+                              <div class="web"><a href="@authorWebsite" title="وب/وبلاگ" target="_blank">@authorWebsite</a></div>
+                              <rate>
+                                 <div class="rate">
+                                    امتیاز: 
+                                    <span onclick="@ajaxPlusAction" title="مثبت" class="plus"><span style="font-size: 10pt;" id="comment-rate-plus-count-@id">@plusCount</span> <img src="http://www.blogsky.com/images/template/blue/plus.gif" alt=""></span>
+                                    <span onclick="@ajaxMinusAction" title="منفی" class="minus"><span style="font-size: 10pt;" id="comment-rate-minus-count-@id">@minusCount</span> <img src="http://www.blogsky.com/images/template/blue/minus.gif" alt=""></span>
+                                    <div id="comment-rate-error-message-@id" class="message"></div>
+                                 </div>
+                              </rate>
+                              <div style="clear: both;"></div>
+                              <reply>
+                                 <div class="reply">
+                                    <b>پاسخ:</b><br />@text
+                                 </div>
+                              </reply>
+                           </div>
+                        </many>
+                        <paging />
+                        <message>
+                           <div class="comment">
+                              <div class="message">@text</div>
+                           </div>
+                        </message>
+                        <form>
+                           <div id="comment-form">
+                              <gravatarHelp>
+                                 <div id="gravatar-help">@message</div>
+                              </gravatarHelp>
+                              <div class="comment">
+                                 <div style="text-align: center;">
+                                    <br />
+                                    <table id="form-box" cellspacing="2">
+                                       <tr>
+                                          <th>نام :</th>
+                                          <td>
+                                             <nameBox />
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <th>ایمیل :</th>
+                                          <td>
+                                             <emailBox />
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <th>وب/وبلاگ :</th>
+                                          <td>
+                                             <websiteBox />
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td colspan="2" style="text-align: right">
+                                             <div style="float: right;">
+                                                <commentBox />
+                                             </div>
+                                             <smiley>
+                                                <div style="position: relative; float: left;">
+                                                   <img src="http://www.blogsky.com/images/smileys/101.png" id="smiley-button" onclick="document.getElementById('smiley-box').style.display='block';" style="cursor: pointer;" alt="" />
+                                                   <div id="smiley-box">
+                                                      <img src="http://www.blogsky.com/images/smileys/101.png" alt="" title="لبخند" onclick="insertCommentSmiley(':لبخند:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/102.png" alt="" title="چشمک" onclick="insertCommentSmiley(':چشمک:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/103.png" alt="" title="خجالت" onclick="insertCommentSmiley(':خجالت:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/104.png" alt="" title="ناراحت" onclick="insertCommentSmiley(':ناراحت:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/105.png" alt="" title="خوشتیپ" onclick="insertCommentSmiley(':خوشتیپ:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/106.png" alt="" title="عصبانی" onclick="insertCommentSmiley(':عصبانی:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/107.png" alt="" title="خنده" onclick="insertCommentSmiley(':خنده:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/108.png" alt="" title="زبان" onclick="insertCommentSmiley(':زبان:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/109.png" alt="" title="مسخره" onclick="insertCommentSmiley(':مسخره:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/110.png" alt="" title="کلافه" onclick="insertCommentSmiley(':کلافه:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/111.png" alt="" title="گریه" onclick="insertCommentSmiley(':گریه:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/112.png" alt="" title="پوزخند" onclick="insertCommentSmiley(':پوزخند:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/113.png" alt="" title="بدجنس" onclick="insertCommentSmiley(':بدجنس:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/114.png" alt="" title="تعجب" onclick="insertCommentSmiley(':تعجب:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/115.png" alt="" title="ناخوش" onclick="insertCommentSmiley(':ناخوش:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/116.png" alt="" title="بیخیال" onclick="insertCommentSmiley(':بیخیال:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/117.png" alt="" title="بوس" onclick="insertCommentSmiley(':بوس:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/118.png" alt="" title="خواب" onclick="insertCommentSmiley(':خواب:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/119.png" alt="" title="عاشق" onclick="insertCommentSmiley(':عاشق:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/120.png" alt="" title="راضی" onclick="insertCommentSmiley(':راضی:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/121.png" alt="" title="کسل" onclick="insertCommentSmiley(':کسل:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/122.png" alt="" title="نخبه" onclick="insertCommentSmiley(':نخبه:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/123.png" alt="" title="گل" onclick="insertCommentSmiley(':گل:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/124.png" alt="" title="هدیه" onclick="insertCommentSmiley(':هدیه:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/125.png" alt="" title="قلب" onclick="insertCommentSmiley(':قلب:')" />
+                                                      <img src="http://www.blogsky.com/images/smileys/126.png" alt="" title="نت" onclick="insertCommentSmiley(':نت:')" />
+                                                   </div>
+                                                </div>
+                                             </smiley>
+                                             <div style="clear: both;"></div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td colspan="2" style="text-align: center">
+                                             <captcha />
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td colspan="2" style="padding-bottom: 5px; text-align: right;">
+                                             <saveProfileBox />
+                                             <label for="bs-input-comment-save-profile"> مشخصات مرا به خاطر بسپار</label>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td colspan="2" style="text-align: right">
+                                             ایمیل شما بعد از ثبت نمایش داده نخواهد شد
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td colspan="2" id="comment-errors-message">
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td colspan="2" style="text-align: center">
+                                             <input type="button" onclick="@ajaxAction" value=" ارسال نظر " />
+                                          </td>
+                                       </tr>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                        </form>
+                     </div>
+                  </comment>
+                  <dailylinkArchive>
+                     <div id="daily-link-archive">
+                        <h2 class="title"><a href="@dailylinkArchiveHref">لینک‌های روزانه</a>&nbsp;<a href="@dailylinkRssHref" target="_blank"><img src="http://www.blogsky.com/images/template/blue/rss4.gif" alt="" /></a></h2>
+                        <ul>
+                           <many>
+                              <li>
+                                 <a href="@url" target="_blank" title="@date">@title</a>&nbsp;<span style="font-size:7pt">(@clickCount&nbsp;کلیک)</span>
+                                 <div class="description">@description</div>
+                              </li>
+                           </many>
+                        </ul>
+                     </div>
+                     <paging />
+                  </dailylinkArchive>
+                  <postArchive>
+                     <div id="post-archive">
+                        <h2 class="title"><a href="@postArchiveHref">عناوین یادداشت‌ها</a>&nbsp;<a href="@blogRssHref" target="_blank"><img src="http://www.blogsky.com/images/template/blue/rss4.gif" alt="" /></a></h2>
+                        <ul>
+                           <many>
+                              <li>
+                                 <a href="@href">@title</a>&nbsp;<span style="font-size:7pt">(@date @time)</span>
+                                 <div class="excerpt">@excerpt</div>
+                              </li>
+                           </many>
+                        </ul>
+                     </div>
+                     <paging />
+                  </postArchive>
+                  <searchResult>
+                     <div id="search-result">
+                        <h2 class="title">@message</h2>
+                        <ul>
+                           <many>
+                              <li>
+                                 <a href="@href">@title</a>&nbsp;<span style="font-size:7pt">(@date)</span>
+                                 <div class="excerpt">@excerpt</div>
+                              </li>
+                           </many>
+                        </ul>
+                     </div>
+                     <paging />
+                  </searchResult>
+                  <paging>
+                     <div id="multi-page">
+                        <div style="float: right;">( تعداد کل: @totalCount )</div>
+                        <prePage>
+                           <a href="@href" title="صفحه قبلی">&lt;&lt;</a>
+                        </prePage>
+                        <many>
+                           <page>&nbsp;&nbsp;&nbsp;<a href="@href">@number</a>&nbsp;&nbsp;&nbsp;</page>
+                           <current>&nbsp;&nbsp;&nbsp;@number&nbsp;&nbsp;&nbsp;</current>
+                        </many>
+                        <nextPage>
+                           <a href="@href" title="صفحه بعدی">&gt;&gt;</a>
+                        </nextPage>
+                     </div>
+                  </paging>
+                  <contact>
+                     <div id="contact">
+                        <div class="header">
+                           <div class="title">تماس با من</div>
+                           <result>
+                              <div class="message">@message</div>
+                           </result>
+                        </div>
+                        <form>
+                           <table id="contact-box" cellspacing="2">
+                              <tr>
+                                 <th>نام :</th>
+                                 <td>
+                                    <nameBox />
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <th>ایمیل :</th>
+                                 <td>
+                                    <emailBox />
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <th>موضوع نامه :</th>
+                                 <td>
+                                    <subjectBox />
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td colspan="2" style="text-align: right">
+                                    <div style="float: right;">
+                                       <messageBox />
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td colspan="2" style="text-align: center">
+                                    <captcha />
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td colspan="2" style="text-align: center">
+                                    <input type="submit" value=" ارسال پیغام " />
+                                 </td>
+                              </tr>
+                           </table>
+                        </form>
+                     </div>
+                  </contact>
+               </div>
+               <div id="sidebar">
+                  <about>
+                     <div class="menu">
+                        <h3 class="title">@caption</h3>
+                        <authorAvatar>
+                           <div style="text-align: center;"><a href="@profileHref" target="_blank"><img src="@image" alt="" /></a></div>
+                        </authorAvatar>
+                        <div class="description">@description</div>
+                        <a href="@profileHref" target="_blank">ادامه...</a>
+                        <div class="hl"></div>
+                     </div>
+                  </about>
+                  <div class="menu">
+                     <h3 class="title">منوی اصلی</h3>
+                     <ul>
+                        <li><a href="@blogUrl">صفحه نخست</a></li>
+                        <li><a href="@postArchiveHref">عناوین مطالب وبلاگ</a></li>
+                        <li><a href="@blogRssHref">خروجی وبلاگ</a></li>
+                        <li><a href="@contactHref">تماس با من</a></li>
+                     </ul>
+                     <div class="hl"></div>
+                  </div>
+                  <poll>
+                     <div class="menu">
+                        <h3 class="title">@caption</h3>
+                        <div>@question</div>
+                        <vote>
+                           <div id="poll-vote-@id">
+                              <ul class="poll-vote">
+                                 <many>
+                                    <li>
+                                       <selectBox />
+                                       @answer
+                                    </li>
+                                 </many>
+                              </ul>
+                              <div>
+                                 <input type="button" value="ثبت" onclick="@ajaxAction" />
+                                 <showResult>
+                                    <a onclick="@ajaxAction" style="cursor: pointer; margin-right: 3px;">مشاهده نتیجه</a>
+                                 </showResult>
+                                 <br />
+                                 <div id="poll-vote-error-message-@id" class="message" style="display: none;">
+                                 </div>
+                                 <expireDate>
+                                    <div style="margin: 12px 0 5px 0;">
+                                       @message
+                                    </div>
+                                 </expireDate>
+                              </div>
+                           </div>
+                        </vote>
+                        <div id="poll-result-@id">
+                           <result>
+                              <many>
+                                 <div class="poll-answer">@answer (@voteCount رای)</div>
+                                 <div class="poll-result-box">
+                                    <div class="poll-result-vote-percent" style="width: @votePercent%;">
+                                       @votePercent%
+                                    </div>
+                                 </div>
+                              </many>
+                              <div style="margin: 12px 0 5px 0;">
+                                 تعداد رای دهندگان: @totalVotes نفر
+                              </div>
+                              <message>
+                                 <div class="message">@text</div>
+                              </message>
+                              <back>
+                                 <a onclick="document.getElementById('poll-result-@id').innerHTML = ''; document.getElementById('poll-vote-@id').style.display='block';" style="cursor: pointer;">بازگشت به نظرسنجی</a>
+                              </back>
+                           </result>
+                        </div>
+                        <div class="hl"></div>
+                     </div>
+                  </poll>
+                  <dailylink>
+                     <div class="menu">
+                        <h3 class="title">@caption&nbsp;<a href="@dailylinkRssHref" target="_blank"><img src="http://www.blogsky.com/images/template/blue/rss4.gif" alt="" /></a></h3>
+                        <ul>
+                           <many>
+                              <li>
+                                 <a href="@url" title="@date" target="_blank">@title</a>
+                                 <description>
+                                    <div class="description">@text</div>
+                                 </description>
+                              </li>
+                           </many>
+                           <li><b><a href="@dailylinkArchiveHref">آرشیو لینک‌های روزانه</a></b></li>
+                        </ul>
+                        <div class="hl"></div>
+                     </div>
+                  </dailylink>
+                  <search>
+                     <div class="menu">
+                        <h3 class="title">@caption</h3>
+                        <searchBox />
+                        <input type="submit" value="جستجو" />
+                        <div class="hl"></div>
+                     </div>
+                  </search>
+                  <calendar>
+                     <div class="menu">
+                        <h3 class="title">@caption</h3>
+                        <table id="calendar">
+                           <tr>
+                              <td>@date</td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <table width="100%" cellspacing="0">
+                                    <tr class="week-days">
+                                       <td>ش</td>
+                                       <td>ی</td>
+                                       <td>د</td>
+                                       <td>س</td>
+                                       <td>چ</td>
+                                       <td>پ</td>
+                                       <td>ج</td>
+                                    </tr>
+                                    <many>
+                                       <tr>
+                                          <day>
+                                             <on>
+                                                <td class="day-on"><a href="@href" title="تعداد یادداشت‌ها: @postCount">@day</a></td>
+                                             </on>
+                                             <off>
+                                                <td class="day-off">@day</td>
+                                             </off>
+                                          </day>
+                                       </tr>
+                                    </many>
+                                 </table>
+                              </td>
+                           </tr>
+                        </table>
+                        <div class="hl"></div>
+                     </div>
+                  </calendar>
+                  <archive>
+                     <div class="menu">
+                        <list>
+                           <h3 class="title">@caption</h3>
+                           <ul>
+                              <many>
+                                 <li>
+                                    <a href="@href">@date</a>
+                                    <postCount>&nbsp;(@count)</postCount>
+                                 </li>
+                              </many>
+                           </ul>
+                        </list>
+                        <dropdown>
+                           <select onchange="if(this.options[this.selectedIndex].value != -1){ javascript:location.href=this.options[this.selectedIndex].value; }">
+                              <option value="-1">@caption</option>
+                              <many>
+                                 <option value="@href">
+                                    @date
+                                    <postCount>&nbsp;(@count)</postCount>
+                                 </option>
+                              </many>
+                           </select>
+                        </dropdown>
+                        <div class="hl"></div>
+                     </div>
+                  </archive>
+                  <tagCloud>
+                     <div class="menu">
+                        <h3 class="title">@caption</h3>
+                        <many>
+                           <a href="@href" class="tag-@weight">@name</a>
+                        </many>
+                        <div class="hl"></div>
+                     </div>
+                  </tagCloud>
+                  <category>
+                     <div class="menu">
+                        <list>
+                           <h3 class="title">@caption</h3>
+                           <ul>
+                              <many>
+                                 <li>
+                                    <a href="@href">@name</a>
+                                    <postCount>&nbsp;(@count)&nbsp;</postCount>
+                                    <rss>&nbsp;<a href="@href" target="_blank"><img src="http://www.blogsky.com/images/template/blue/rss3.gif" alt="" /></a></rss>
+                                    <subCategory>
+                                       <ul>
+                                          <many />
+                                       </ul>
+                                    </subCategory>
+                                 </li>
+                              </many>
+                           </ul>
+                        </list>
+                        <dropdown>
+                           <select onchange="if(this.options[this.selectedIndex].value != -1){ javascript:location.href=this.options[this.selectedIndex].value; }">
+                              <option value="-1">@caption</option>
+                              <many>
+                                 <option value="@href">
+                                    @whiteSpace@name
+                                    <postCount>&nbsp;(@count)</postCount>
+                                 </option>
+                                 <subCategory>
+                                    <many />
+                                 </subCategory>
+                              </many>
+                           </select>
+                        </dropdown>
+                        <div class="hl"></div>
+                     </div>
+                  </category>
+                  <staticPageList>
+                     <div class="menu">
+                        <h3 class="title">@caption</h3>
+                        <ul>
+                           <many>
+                              <li><a href="@href">@title</a></li>
+                           </many>
+                        </ul>
+                        <div class="hl"></div>
+                     </div>
+                  </staticPageList>
+                  <link>
+                  <div class="menu">
+                     <h3 class="title">@caption</h3>
+                     <ul>
+                        <many>
+                           <li>
+                              <a href="@url" target="_blank">@title</a>
+                              <description>
+                                 <div class="description">@text</div>
+                              </description>
+                           </li>
+                        </many>
+                     </ul>
+                     <div class="hl"></div>
+                  </div>
+                  </link>
+                  <author>
+                     <div class="menu">
+                        <list>
+                           <h3 class="title">@caption</h3>
+                           <ul>
+                              <many>
+                                 <li>
+                                    <a href="@href">@name</a>
+                                    <postCount>&nbsp;(@count)&nbsp;</postCount>
+                                    <rss>&nbsp;<a href="@href" target="_blank"><img src="http://www.blogsky.com/images/template/blue/rss3.gif" alt="" /></a>&nbsp;</rss>
+                                    <profile><a href="@href" target="_blank"><img src="http://www.blogsky.com/images/template/blue/profile.gif" alt="" /></a></profile>
+                                 </li>
+                              </many>
+                           </ul>
+                        </list>
+                        <dropdown>
+                           <select onchange="if(this.options[this.selectedIndex].value != -1){ javascript:location.href=this.options[this.selectedIndex].value; }">
+                              <option value="-1">@caption</option>
+                              <many>
+                                 <option value="@href">
+                                    @name
+                                    <postCount>&nbsp;(@count)</postCount>
+                                 </option>
+                              </many>
+                           </select>
+                        </dropdown>
+                        <div class="hl"></div>
+                     </div>
+                  </author>
+                  <customHtml>
+                     <div class="menu">
+                        <h3 class="title">@caption</h3>
+                        <div class="html">@html</div>
+                        <div class="hl"></div>
+                     </div>
+                  </customHtml>
+                  <recentPost>
+                     <div class="menu">
+                        <h3 class="title">@caption</h3>
+                        <ul>
+                           <many>
+                              <li>
+                                 <a href="@href" title="@date">@title</a>
+                                 <excerpt>
+                                    <div class="excerpt">@text</div>
+                                 </excerpt>
+                              </li>
+                           </many>
+                           <li><b><a href="@postArchiveHref">لیست کامل عناوین یادداشت‌ها</a></b></li>
+                        </ul>
+                        <div class="hl"></div>
+                     </div>
+                  </recentPost>
+                  <stats>
+                     <div class="menu">
+                        <h3 class="title">@caption</h3>
+                        <div style="text-align: center;">
+                           تعداد بازدیدکنندگان : @counter
+                        </div>
+                     </div>
+                  </stats>
+                  <div style="text-align: center; padding-top: 20px;">
+                     <a href="@blogRssHref" target="_blank"><img src="http://www.blogsky.com/images/template/blue/rss2.gif" alt="" /></a>
+                  </div>
+               </div>
+               <div id="footer">
+                  <div class="cb">
+                     <div class="cl">
+                        <div id="powered"><a href="http://www.blogsky.com" target="_blank">Powered by blogsky.com</a></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+   <script>
+      callback = function() {
+        $(document).ready(function() {
+          $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+      };
+      $( "#no3" ).load( "https://raw.githubusercontent.com/DANA-Laboratory/juliaCourses/master/src/no3.jl", callback );
+      $( "#no2" ).load( "https://raw.githubusercontent.com/DANA-Laboratory/juliaCourses/master/src/no2.jl", callback );
+   </script>
+</html>
