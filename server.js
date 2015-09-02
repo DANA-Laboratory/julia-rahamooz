@@ -104,6 +104,10 @@ var SampleApp = function() {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('index.html') );
         };
+        
+        self.routes['/:page'] = function(req, res) {
+            res.send("./view/" + req.params.page);
+        };
     };
 
 
@@ -116,6 +120,7 @@ var SampleApp = function() {
         self.app = express.createServer();
         // set static asset folder
         self.app.use(express.static('public'));
+        self.app.use(express.static('src'));
         //  Add handlers for the app (from the routes).
         for (var r in self.routes) {
             self.app.get(r, self.routes[r]);
