@@ -2,6 +2,7 @@
 //  OpenShift sample Node application
 var express = require('express');
 var fs      = require('fs');
+var highlight = require('highlight.js');
 
 
 /**
@@ -12,6 +13,7 @@ var SampleApp = function() {
     //  Scope.
     var self = this;
     
+    var hl = highlight.highlight;
 
     /*  ================================================================  */
     /*  Helper functions.                                                 */
@@ -44,6 +46,10 @@ var SampleApp = function() {
 
         //  Local cache for static content.
         self.zcache['index.html'] = fs.readFileSync('./index.html');
+        self.zcache['no1.html'] = hl('julia', fs.readFileSync('./src/no1.jl').toString()).value;
+        self.zcache['no2.html'] = hl('julia', fs.readFileSync('./src/no2.jl').toString()).value;
+        self.zcache['no3.html'] = hl('julia', fs.readFileSync('./src/no3.jl').toString()).value;
+        self.zcache['no4.html'] = hl('julia', fs.readFileSync('./src/no4.jl').toString()).value;
     };
 
 
@@ -92,6 +98,9 @@ var SampleApp = function() {
     /**
      *  Create the routing table entries + handlers for the application.
      */
+    var courseHead = '<!DOCTYPE html><html><head><header><link rel="stylesheet" href="/css/course.css"><link rel="stylesheet" href="/css/dlab.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script><script src="/highlight/highlight.min.js"></script></header></head><body><pre align="left" dir="ltr"><code id="no2">'
+    var courseFoot = '</code></pre></body></html>'
+
     self.createRoutes = function() {
         self.routes = { };
 
@@ -105,6 +114,10 @@ var SampleApp = function() {
             res.send(self.cache_get('index.html') );
         };
         
+        self.routes['/course/:no'] = function(req, res) {
+            res.send( courseHead + self.cache_get('no' + req.params.no + '.html') + courseFoot );
+        };
+
         self.routes['/:page'] = function(req, res) {
             res.render(req.params.page);
         };
