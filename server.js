@@ -98,7 +98,7 @@ var SampleApp = function() {
     /**
      *  Create the routing table entries + handlers for the application.
      */
-    var courseHead = '<!DOCTYPE html><html><head><header><link rel="stylesheet" href="/css/course.css"><link rel="stylesheet" href="/css/dlab.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script><script src="/highlight/highlight.min.js"></script></header></head><body><pre align="left" dir="ltr"><code id="no2">'
+    var courseHead = '<!DOCTYPE html><html><head><header><link rel="stylesheet" href="/css/course.css"><link rel="stylesheet" href="/css/dlab.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script></header></head><body><pre align="left" dir="ltr"><code class="hljs">'
     var courseFoot = '</code></pre></body></html>'
 
     self.createRoutes = function() {
