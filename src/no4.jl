@@ -5,9 +5,15 @@
 !=#
 
 #=!
-داده های آماری را بصورت ماتریسی از اعداد تصادفی تولید میکنیم
+داده های آماری را بصورت برداری از اعداد تصادفی تولید مینماییم
 !=#
-randomdata = rand((10,20)) #=> 10x20 Array{Float64,2}
-meanval = mean(randomdata) #=> محاسبه مقدار متوسط داده ها
-stdval = std(randomdata,1) #=> انحراف از معیار داده ها روی بعد اول 
-
+using Base.Test #=> مجموعه توابع تست استفاده گردند
+randomdata = rand(100); #=> 100-element Array{Float64,1}
+meanval = mean(randomdata) #=> تابع mean مقدار متوسط داده ها را محاسبه میکند
+@test_approx_eq meanval sum(randomdata)/length(randomdata)
+varval = std(randomdata) #=> تابع var وارینس داده ها را محاسبه میکند 
+@test_approx_eq varval sum((randomdata - meanval).^2) / (length(randomdata) - 1)
+stdval = std(randomdata) #=> تابع std انحراف از معیار داده های را محاسبه میکند 
+@test_approx_eq stdval sqrt(varval)
+midval = middle(randomdata) #=> تابع middle مقدار میانی را محاسبه میکند
+@test_approx_eq midval (max(randomdata)-min(randomdata))/2 
