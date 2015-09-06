@@ -43,13 +43,18 @@ var SampleApp = function() {
         if (typeof self.zcache === "undefined") {
             self.zcache = { 'index.html': '' };
         }
-
+        var removePFlg = true;
         //  Local cache for static content.
         self.zcache['index.html'] = fs.readFileSync('./index.html');
-        self.zcache['no1.html'] = hl('julia', fs.readFileSync('./src/no1.jl').toString()).value;
-        self.zcache['no2.html'] = hl('julia', fs.readFileSync('./src/no2.jl').toString()).value;
-        self.zcache['no3.html'] = hl('julia', fs.readFileSync('./src/no3.jl').toString()).value;
-        self.zcache['no4.html'] = hl('julia', fs.readFileSync('./src/no4.jl').toString()).value;
+        for (var i in files = fs.readdirSync('./src')){
+            if (files[i].slice(-3)==='.jl') {
+                var jlFile = hl('julia', fs.readFileSync('./src/' + files[i]).toString()).value;
+                if (removePFlg)
+                    self.zcache[files[i].replace('.jl','.html')] = jlFile.replace(/#=![\r]*\n/g,'').replace(/!=#/g,'');
+                else
+                    self.zcache[files[i].replace('.jl','.html')] = jlFile;
+            }
+        };
     };
 
 

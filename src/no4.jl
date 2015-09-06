@@ -28,4 +28,3 @@ stdval = std(randomdata)
 !=#
 midval = middle(randomdata) 
 @test_approx_eq midval (maximum(randomdata)+minimum(randomdata))/2
- 
