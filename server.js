@@ -43,16 +43,12 @@ var SampleApp = function() {
         if (typeof self.zcache === "undefined") {
             self.zcache = { 'index.html': '' };
         }
-        var removePFlg = true;
         //  Local cache for static content.
         self.zcache['index.html'] = fs.readFileSync('./index.html');
         for (var i in files = fs.readdirSync('./src')){
             if (files[i].slice(-3)==='.jl') {
                 var jlFile = hl('julia', fs.readFileSync('./src/' + files[i]).toString()).value;
-                if (removePFlg)
-                    self.zcache[files[i].replace('.jl','.html')] = jlFile.replace(/#=![\r]*\n/g,'').replace(/!=#/g,'');
-                else
-                    self.zcache[files[i].replace('.jl','.html')] = jlFile;
+                self.zcache[files[i].replace('.jl','.html')] = jlFile.replace(/#=![\r]*\n/g,'').replace(/!=#/g,'');
             }
         };
     };
