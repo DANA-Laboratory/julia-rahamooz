@@ -120,7 +120,7 @@ var SampleApp = function() {
         };
 
         self.routes['/:page'] = function(req, res) {
-            res.render(req.params.page);
+            res.render( 'course', {no: req.params.page});
         };
     };
 
