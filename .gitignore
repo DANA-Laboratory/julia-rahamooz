@@ -1,3 +1,7 @@
+# julia memory track
+*.mem
+#julia coverage
+*.cov
 # swap
 *.swp
 
