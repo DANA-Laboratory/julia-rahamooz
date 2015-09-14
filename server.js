@@ -45,7 +45,7 @@ var SampleApp = function() {
         }
         //  Local cache for static content.
         for (var i in files = fs.readdirSync('./src')){
-            if (files[i].slice(-3)==='.jl') {
+            if (files[i].slice(-3)==='.jl' && files[i].slice(0,2)==='no') {
                 var jlFile = hl('julia', fs.readFileSync('./src/' + files[i]).toString()).value;
                 self.zcache[files[i].replace('.jl','.html')] = jlFile.replace(/#=![\r]*\n/g,'').replace(/!=#/g,'');
             }

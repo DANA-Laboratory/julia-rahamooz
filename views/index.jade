@@ -1,63 +1,154 @@
 doctype html
-html(lang="en")
+html(lang="en" dir="rtl")
   head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
     link(rel='stylesheet', href='/css/home.css')
-    title Welcome to OpenShift
+    title پایگاه ره آموز Julia
   body
     section.container
       hgroup
-        h1 Welcome to your Node.js application on OpenShift
+        h1 به پایگاه ره آموز Julia خوش آمدید 
       .row
         section.col-xs-12.col-sm-6.col-md-6
           section
-            h2 Deploying code changes
-            p
-              | OpenShift uses the
-              a(href="http://git-scm.com/") Git version control system
-              | for your source code, and grants you access to it via the Secure Shell (SSH) protocol. In order to upload and download code to your application you need to give us your
-              a(href="https://developers.openshift.com/en/managing-remote-connection.html") public SSH key
-              | . You can upload it within the web console or install the
-              a(href="https://developers.openshift.com/en/managing-client-tools.html") RHC command line tool
-              | and run
-              code rhc setup
-              | to generate and upload your key automatically.
-            h3 Working in your local Git repository
-            p
-              | If you created your application from the command line and uploaded your SSH key, rhc will automatically download a copy of that source code repository (Git calls this "cloning") to your local system.
-            p
-              | If you created the application from the web console, you"ll need to manually clone the repository to your local system. Copy the application"s source code Git URL and then run:
-            pre.
-              \n$ git clone <git_url> <directory_to_create>
-              
-              # Within your project directory
-              # Commit your changes and push to OpenShift
-              
-              $ git commit -a -m 'Some commit message'
-              $ git push              
-            ul
-              li
-                a(href="https://developers.openshift.com/en/managing-modifying-applications.html") Learn more about deploying and building your application
-              li
-                | See the README file in your local application Git repository for more information on the options for deploying applications.
+            h2 معرفی زبان برنامه نویسی Julia
+            p(style='text-align: justify;')
+              | جولیا یک زبان تخصصی جهت انجام محاسبات عددی می باشد. مهمترین ویژگیهای آن سادگی در نصب، یادگیری و کاربری، سرعت بالا در انجام محاسبات  و توانمندی های بروز و گسترده در کاربردهای متنوع آمار، ریاضات و محاسبات مهندسی میباشد. این زبان قابلیتهای سطح پایین مانند محاسبات ریاضی پایه بر اعداد (صحیح و اعشاری) و اجرای حلقه های تکرار را با سرعت و دقت بالا (قابل مقایسه با C یا Fortran) انجام میدهد و توانایی های سطح بالایی مانند عملیات ریاضی پیشرفته بر بردارها و ماتریسها، پردازش موازی و ارائه سرویس بر روی شبکه را پشتیبانی می کند. نحوه کمپایل آن JIT مخفف (Just in Time) میباشد. به این معنا که برگرداندن کدها به زبان ماشین در زمان اجرا و توسط LLVM مخفف (Low-Level Virtual Machine) انجام می شود. از جمله ویژگیهای مهم این زبان پشتیبانی از عبارات ریاضی (Expressions) بصورت یک شیئ داخلی است. این زبان برنامه نویسی مورد حمایت دانشگاه MIT می باشد و
+              a(href='http://math.mit.edu/~stevenj')  پروفسور جانسون
+              |  استاد ریاضی پیشرفته این دانشگاه از مدیران فعال پروژه زبان برنامه نوسی Julia است. بعلاوه یکی از وجوه تمایز زبان برنامه نویسی متن باز (open source) بودن میباشد، بنابراین کلیه کدهای کمپایلر از طریق 
+              a(href='https://github.com/JuliaLang/julia') سورس جولیا
+              |  در اختیار عموم  قرار دارد. جهت دسترسی به آخرین اطلاعات به آدرس 
+              a(href='http://julialang.org/') سایت رسمی
+              |  مراجعه نمایید. جهت اطلاع از نحوه استفاده از زبان برنامه نویسی Julia در دانشگاه MIT به پروژه متن باز 
+              a(href='https://github.com/stevengj/julia-mit/') Julia for Numerical Computation in MIT Courses
+              |  مراجعه نمایید. جهت سهولت در کد نویسی و دریافت آخرین پکیج ها بهتر است برنامه نویسی را در محیط 
+              a(href='http://junolab.org/') Juno
+              |  انجام دهید.
+            p(style='text-align: center;')
+              strong مقایسه سرعت اجرا توابع منتخب نسبت به زبان C ، (کمتر بهتر است)
+            pre
+              table.benchmarks
+                tbody
+                  tr
+                    th
+                    th
+                      | Fortran
+                      br
+                      | gcc 4.8.2
+                    th
+                      | Julia
+                      br
+                      | 0.3.7
+                    th
+                      | Python
+                      br
+                      | 2.7.9
+                    th
+                      | R
+                      br
+                      | 3.1.3
+                    th
+                      | Matlab
+                      br
+                      | R2014a
+                    th
+                      | Mathe-
+                      br
+                      | matica
+                      br
+                      | 10.0
+                    th
+                      | JavaScript
+                      br
+                      | V8 3.14
+                    th
+                      | Java
+                      br
+                      | 1.7
+                  tr
+                    th fib
+                    td 0.57
+                    td 2.14
+                    td 95.45
+                    td 528.85
+                    td 4258.12
+                    td 166.64
+                    td 3.68
+                    td 0.96
+                  tr
+                    th parse_int
+                    td 4.67
+                    td 1.57
+                    td 20.48
+                    td 54.30
+                    td 1525.88
+                    td 17.70
+                    td 2.29
+                    td 5.43
+                  tr
+                    th quicksort
+                    td 1.10
+                    td 1.21
+                    td 46.70
+                    td 248.28
+                    td 55.87
+                    td 48.47
+                    td 2.91
+                    td 1.65
+                  tr
+                    th mandel
+                    td 0.87
+                    td 0.87
+                    td 18.83
+                    td 58.97
+                    td 60.09
+                    td 6.12
+                    td 1.86
+                    td 0.68
+                  tr
+                    th pi_sum
+                    td 0.83
+                    td 1.00
+                    td 21.07
+                    td 14.45
+                    td 1.28
+                    td 1.27
+                    td 2.15
+                    td 1.00
+                  tr
+                    th rand_mat_stat
+                    td 0.99
+                    td 1.74
+                    td 22.29
+                    td 16.88
+                    td 9.82
+                    td 6.20
+                    td 2.81
+                    td 4.01
+                  tr
+                    th rand_mat_mul
+                    td 4.05
+                    td 1.09
+                    td 1.08
+                    td 1.63
+                    td 1.12
+                    td 1.13
+                    td 14.58
+                    td 2.35
         section.col-xs-12.col-sm-6.col-md-6
-          h2 Managing your application
-          h3 Web Console
-          p
-            | You can use the OpenShift web console to enable additional capabilities via cartridges, add collaborator access authorizations, designate custom domain aliases, and manage domain memberships.
-          h3 Command Line Tools
-          p
-            | Installing the
-            a(href="https://developers.openshift.com/en/managing-client-tools.html") OpenShift RHC client tools
-            | allows you complete control of your cloud environment. Read more on how to manage your application from the command line in our
-            a(href="https://www.openshift.com/user-guide") User Guide
-            | .
+          h2.title دریافت کمپایلر Julia
+          p(style='text-align: justify;')
+            | کمپایلر جولیا به هیچ وجه برنامه بزرگ و حجیمی نیست، در حقیقت تمام آنچه شما برای برنامه نویسی به این زبان احتیاج دارید حدود 30 مگابایت میباشد که به صورت رایگان از طریق 
+            a(href='http://julialang.org/downloads') صفحه داونلود پایگاه رسمی این زبان
+            |  در دسترس است. در صفحه مذکور گزینه های مختلفی جهت دریافت به کاربر نشان داده میشود. نسخه Nightly Build آخرین تغییرات این زبان را شامل میشود اما اگر بخواهید یک نسخه قابل اعتماد داشته باشید بهتر است Current Release را دریافت نمایید.
+            | همچنین در صورتی که به دنبال یک محیط کامل برنامه نویسی با تمام امکانات متداول مانند دیباگ، مدیریت فایل ها، نشان گذاری و .... میباشد Juno IDE+Julia  را انتخاب نمایید که به دلیل حجم بالاتر زمان بیشتری برای دانلود نیاز دارد.
           h2 درسهای Julia
+          -var coursenames= ["جولیا در چند دقیقه","حلقه تکرار در Julia","محاسبات آماری با Julia","آنالیز کد"]
           ul
-            each val in courses
+            each val, index in courses
               li
-                a(href="/course/#{val}") #{val}                
+                a(href="/course/#{val}") #{coursenames[index]}                
       footer
         .logo
           a(href="https://www.openshift.com/")
