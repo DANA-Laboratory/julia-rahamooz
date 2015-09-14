@@ -41,10 +41,9 @@ var SampleApp = function() {
      */
     self.populateCache = function() {
         if (typeof self.zcache === "undefined") {
-            self.zcache = { 'index.html': '' };
+            self.zcache = { };
         }
         //  Local cache for static content.
-        self.zcache['index.html'] = fs.readFileSync('./index.html');
         for (var i in files = fs.readdirSync('./src')){
             if (files[i].slice(-3)==='.jl') {
                 var jlFile = hl('julia', fs.readFileSync('./src/' + files[i]).toString()).value;
@@ -60,7 +59,8 @@ var SampleApp = function() {
      */
     self.cache_get = function(key) { return self.zcache[key]; };
 
-
+    // cache courses
+    self.cache_key = function() { return Object.keys(self.zcache); };
     /**
      *  terminator === the termination handler
      *  Terminate server on receipt of the specified signal.
@@ -111,12 +111,11 @@ var SampleApp = function() {
         };
 
         self.routes['/'] = function(req, res) {
-            res.setHeader('Content-Type', 'text/html');
-            res.send(self.cache_get('index.html') );
+            res.render( 'index', {courses: self.cache_key()} );
         };
         
         self.routes['/course/:no'] = function(req, res) {
-            res.send( courseHead + self.cache_get('no' + req.params.no + '.html') + courseFoot );
+            res.send( courseHead + self.cache_get(req.params.no) + courseFoot );
         };
 
         self.routes['/:page'] = function(req, res) {
