@@ -1,6 +1,6 @@
 # juliaCourses
 
-[![Build Status](https://travis-ci.org/DANA-Laboratory/juliaRahamooz.svg?branch=master)](https://travis-ci.org/DANA-Laboratory/juliaRahamooz.svg)
+[![Build Status](https://travis-ci.org/DANA-Laboratory/juliaRahamooz.svg?branch=master)](https://travis-ci.org/DANA-Laboratory/juliaRahamooz)
 
 This repository contains course material and highlighting scripts for http://julialang.blogsky.com/
 
