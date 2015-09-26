@@ -80,7 +80,7 @@ ul {
 .row:after {
   clear: both;
 }
-.col-sm-6, .col-md-6, .col-xs-12 {
+.col-sm-4, .col-md-4, .col-sm-6, .col-md-6, .col-sm-8, .col-md-8, .col-xs-12 {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -94,11 +94,23 @@ ul {
   .container {
     width: 750px;
   }
+  .col-sm-8 {
+    float: left;
+  }
+  .col-sm-8 {
+    width: 70%;
+  }
   .col-sm-6 {
     float: left;
   }
   .col-sm-6 {
     width: 50%;
+  }
+  .col-sm-4 {
+    float: left;
+  }
+  .col-sm-4 {
+    width: 30%;
   }
 }
 
@@ -106,11 +118,23 @@ ul {
   .container {
     width: 970px;
   }
+  .col-md-8 {
+    float: left;
+  }
+  .col-md-8 {
+    width: 70%;
+  }
   .col-md-6 {
     float: left;
   }
   .col-md-6 {
     width: 50%;
+  }
+  .col-md-4 {
+    float: left;
+  }
+  .col-md-4 {
+    width: 30%;
   }
 }
 @media (min-width: 1200px) {
