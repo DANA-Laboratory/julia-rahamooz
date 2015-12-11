@@ -166,7 +166,7 @@ false
 کاراکتر $ عبارات julia را در داخل یک رشته بیان میکند:
 !=#
 # $ can be used for string interpolation:
-"2 + 2 = $(2 + 2)" # => "2 + 2 = 4"
+str = "2 + 2 = $(2 + 2)" # => "2 + 2 = 4"
 # You can put any Julia expression inside the parenthesis.
 #=!
 روش جایگزین جهت تعریف قالب های چاپی برای رشته ها استفاده از ماکرو @printf میباشد:
@@ -348,7 +348,7 @@ length(a) # => 8
 # Tuples are immutable.
 tup = (1, 2, 3) # => (1,2,3) # an (Int64,Int64,Int64) tuple.
 tup[1] # => 1
-try:
+try
     tup[1] = 3 # => ERROR: no method setindex!((Int64,Int64,Int64),Int64,Int64)
 catch e
     println(e)
@@ -390,7 +390,7 @@ empty_dict = Dict() # => Dict{Any,Any}()
 در واژه نامه ها کلید هر مقدار یک واژه است:
 !=#
 # You can create a dictionary using a literal
-filled_dict = ["one"=> 1, "two"=> 2, "three"=> 3]
+filled_dict = Dict("one"=> 1, "two"=> 2, "three"=> 3)
 # => Dict{ASCIIString,Int64}
 #=!
 ابزار رجوع به واژه ها در واژه نامه، آوردن کلیدواژه در کروشه است:
@@ -418,8 +418,8 @@ values(filled_dict)
 بررس وجود یک مقدار در واژه نامه با استفاده از توابع in وhaskey 
 !=#
 # Check for existence of keys in a dictionary with in, haskey
-in(("one", 1), filled_dict) # => true
-in(("two", 3), filled_dict) # => false
+in(("one" => 1), filled_dict) # => true
+in(("two" => 3), filled_dict) # => false
 haskey(filled_dict, "one") # => true
 haskey(filled_dict, 1) # => false
 #=!
@@ -447,7 +447,7 @@ empty_set = Set() # => Set{Any}()
 تولید Set از مجموعه از از مقادير:
 !=#
 # Initialize a set with values
-filled_set = Set(1,2,2,3,4) # => Set{Int64}(1,2,3,4)
+filled_set = Set([1,2,2,3,4]) # => Set{Int64}(1,2,3,4)
 #=!
 افزودن مقدار به Set:
 !=#
@@ -463,10 +463,10 @@ in(10, filled_set) # => false
 توابعی برای محاسبه اشتراکات، محاسبه اختلافات و ملحق نمودن Set ها وجود دارد:
 !=#
 # There are functions for set intersection, union, and difference.
-other_set = Set(3, 4, 5, 6) # => Set{Int64}(6,4,5,3)
+other_set = Set([3, 4, 5, 6]) # => Set{Int64}(6,4,5,3)
 intersect(filled_set, other_set) # => Set{Int64}(3,4,5)
 union(filled_set, other_set) # => Set{Int64}(1,2,3,4,5,6)
-setdiff(Set(1,2,3,4),Set(2,3,5)) # => Set{Int64}(1,4)
+setdiff(Set([1,2,3,4]),Set([2,3,5])) # => Set{Int64}(1,4)
 #=!
 ####################################################
 ## 3- ساختارهای کنترلی
@@ -598,12 +598,12 @@ varargs(1,2,3) # => (1,2,3)
 # We just used it in a function definition.
 # It can also be used in a fuction call,
 # where it will splat an Array or Tuple's contents into the argument list.
-Set([1,2,3])    # => Set{Array{Int64,1}}([1,2,3]) # produces a Set of Arrays
-Set([1,2,3]...) # => Set{Int64}(1,2,3) # this is equivalent to Set(1,2,3)
+tuple([1,2,3])    # => ([1,2,3],)
+tuple([1,2,3]...) # => (1,2,3) # same as tuple(1,2,3)
 
 x = (1,2,3)     # => (1,2,3)
-Set(x)          # => Set{(Int64,Int64,Int64)}((1,2,3)) # a Set of Tuples
-Set(x...)       # => Set{Int64}(2,3,1)
+tuple(x)        # => ((1,2,3),) 
+tuple(x...)     # => (1,2,3) # same as tuple([1,2,3]...)
 #=!
 توابع را میتوان با پارامترهای اختیاری دارای مقدار پیش فرض تعریف نمود: 
 !=#

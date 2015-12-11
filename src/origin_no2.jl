@@ -76,7 +76,7 @@ false
 # so iterating over strings is recommended (map, for loops, etc).
 
 # $ can be used for string interpolation:
-"2 + 2 = $(2 + 2)" # => "2 + 2 = 4"
+str = "2 + 2 = $(2 + 2)" # => "2 + 2 = 4"
 # You can put any Julia expression inside the parentheses.
 
 # Another way to format strings is the printf macro.
@@ -199,7 +199,7 @@ length(a) # => 8
 # Tuples are immutable.
 tup = (1, 2, 3) # => (1,2,3) # an (Int64,Int64,Int64) tuple.
 tup[1] # => 1
-try:
+try
     tup[1] = 3 # => ERROR: no method setindex!((Int64,Int64,Int64),Int64,Int64)
 catch e
     println(e)
@@ -228,7 +228,7 @@ e, d = d, e  # => (5,4) # d is now 5 and e is now 4
 empty_dict = Dict() # => Dict{Any,Any}()
 
 # You can create a dictionary using a literal
-filled_dict = ["one"=> 1, "two"=> 2, "three"=> 3]
+filled_dict = Dict("one"=> 1, "two"=> 2, "three"=> 3)
 # => Dict{ASCIIString,Int64}
 
 # Look up values with []
@@ -245,8 +245,8 @@ values(filled_dict)
 # Note - Same as above regarding key ordering.
 
 # Check for existence of keys in a dictionary with in, haskey
-in(("one", 1), filled_dict) # => true
-in(("two", 3), filled_dict) # => false
+in(("one" => 1), filled_dict) # => true
+in(("two" => 3), filled_dict) # => false
 haskey(filled_dict, "one") # => true
 haskey(filled_dict, 1) # => false
 
@@ -265,7 +265,7 @@ get(filled_dict,"four",4) # => 4
 # Use Sets to represent collections of unordered, unique values
 empty_set = Set() # => Set{Any}()
 # Initialize a set with values
-filled_set = Set(1,2,2,3,4) # => Set{Int64}(1,2,3,4)
+filled_set = Set([1,2,2,3,4]) # => Set{Int64}(1,2,3,4)
 
 # Add more values to a set
 push!(filled_set,5) # => Set{Int64}(5,4,2,3,1)
@@ -275,10 +275,10 @@ in(2, filled_set) # => true
 in(10, filled_set) # => false
 
 # There are functions for set intersection, union, and difference.
-other_set = Set(3, 4, 5, 6) # => Set{Int64}(6,4,5,3)
+other_set = Set([3, 4, 5, 6]) # => Set{Int64}(6,4,5,3)
 intersect(filled_set, other_set) # => Set{Int64}(3,4,5)
 union(filled_set, other_set) # => Set{Int64}(1,2,3,4,5,6)
-setdiff(Set(1,2,3,4),Set(2,3,5)) # => Set{Int64}(1,4)
+setdiff(Set([1,2,3,4]),Set([2,3,5])) # => Set{Int64}(1,4)
 
 
 ####################################################
@@ -387,14 +387,12 @@ varargs(1,2,3) # => (1,2,3)
 # We just used it in a function definition.
 # It can also be used in a fuction call,
 # where it will splat an Array or Tuple's contents into the argument list.
-Set([1,2,3])    # => Set{Array{Int64,1}}([1,2,3]) # produces a Set of Arrays
-Set([1,2,3]...) # => Set{Int64}(1,2,3) # this is equivalent to Set(1,2,3)
+tuple([1,2,3])    # => ([1,2,3],)
+tuple([1,2,3]...) # => (1,2,3) # same as tuple(1,2,3)
 
 x = (1,2,3)     # => (1,2,3)
-Set(x)          # => Set{(Int64,Int64,Int64)}((1,2,3)) # a Set of Tuples
-Set(x...)       # => Set{Int64}(2,3,1)
-
-
+tuple(x)        # => ((1,2,3),) 
+tuple(x...)     # => (1,2,3) # same as tuple([1,2,3]...)
 # You can define functions with optional positional arguments
 function defaults(a,b,x=5,y=6)
     return "$a $b and $x $y"
